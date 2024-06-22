@@ -15,7 +15,7 @@ def hash_bi(p,a,b,P,q, M): #q = O(P)
         print(f"        {M[i]} = {letter} = {bin(letter)[2:]}")
         data_ack_letter.append(bin(letter)[2:])
     bi_data = "".join(data_ack_letter)
-    bi_data = "100001011000111010001110" # потом дропнуть
+    bi_data = "110110001100010111000010" # потом дропнуть
     bi_data = "0" * (n-len(bi_data)%n)+bi_data if not isinstance(bi_data, int) else bi_data
     list_bi_data = [bi_data[i:i+n] for i in range(0, len(bi_data), n)]
     print(bi_data)
@@ -65,19 +65,18 @@ def point4(k, q, P, a, b, p):
         a = z
         print(f"((3*x1^2+(a))/(2*y1) * (x1-x3) - y1 = (3*{x1}**2+({a}))/(2*{y1}))**2 - 2*{x1} = {y3}")
         print(f"Проверка: y^2 = x^3 + {a}*x + {b}")
-        print(f"(y^2) mod{p} = ({y3}**2)%p =  {(y3**2)%p}")
+        print(f"(y^2) mod{p} = ({y3}^2)%p =  {(y3**2)%p}")
         print(f"(x^3 + {a}*x + {b}) mod {p} = ({x3}^3 + {a}*{x3} + {b}) mod{p} = ({x3**3} + {a*x3} + {b}) mod {p} = {(x3**3 + a*x3 + b)%p}")
         print()
-        print(f"C = {k}P = ({x3}, {y3}) + ({x3}, {y3}) = ({x1}, {y1})")
+        print(f"C = {k}P = ({x1}, {y1}) + ({x1}, {y1}) = ({x3}, {y3})")
 
         x1, y1 = x3, y3
-        x3,y3 = 48, 59 # удалить
+        # x3,y3 = 48, 59 # удалить
     r = x3%q
     print()
 
 
-    print(f"r = xc mod {q} = {x3} ")
-    r = x3
+    print(f"r = xc mod {q} = {r} ")
     if r == 0:
         print("Вернись на шаг 3 и выбери другую k")
         print("Вернись на шаг 3 и выбери другую k")
@@ -96,21 +95,21 @@ def point5(r, d, k,e, q):
     print(f"s = (r*d + ke) mod (q) = {r}*{d} + {k}*{e} mod {q} = {s}")
     return s
 
-def point6(r,s):
-    r_bin = bin(r)[2:]
-    s_bin = bin(s)[2:]
-    s
+def point6(r,s,q):
+    n = int(math.log(q, 2))
+    r_bin = bin(r)[2:].zfill(n)
+    s_bin = bin(s)[2:].zfill(n)
     print(f"r =  в десятичном системе счисления  {r} = в двоичном виде {r_bin}")
     print(f"s =  в десятичном системе счисления  {s} = в двоичном виде {s_bin}")
     print(f"Электронная подпись (ЭП) = r || s  = {r_bin} || {s_bin} = {r_bin+s_bin}")
 
 def main():
-    p = 103
-    a = 6
-    b = 4
-    P = (3, 7)
-    q = 59
-    M = "eoo"
+    p = 97#103
+    a = 9 #6
+    b = 3#4
+    P = (0,10) #(3, 7)
+    q = 47 #59
+    M = "ШЭВ"#"eoo"
     print(f"ШАГ-1")
     h_m = hash_bi(p, a, b, P, q, M)
     print()
@@ -126,11 +125,11 @@ def main():
     print()
     print(f"ШАГ-5")
     d = randrange(q-14, q+1)
-    d = 32 # удалить
-    k = 7 # удалить
+    d = 37#32 # удалить
+    k = 4#7 # удалить
     s = point5(r, d, k,e, q)
     print()
     print(f"ШАГ-6")
-    point6(r, s)
+    point6(r, s, q)
 
 main()
