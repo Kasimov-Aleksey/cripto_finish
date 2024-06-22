@@ -1,106 +1,4 @@
-# def evklid():
-#     data = [17, 8200]
-#     a, b = max(data), min(data)
-#     q, r, x, y = "-", "-", "-", "-"
-#     x2, x1, y2, y1 = 1, 0, 0, 1
-#     print(f"q={q}, r={r}, x={x}, y={y}, a={a}, b={b}, x2={x2}, x1={x1}, y2={y2}, y1={y1} ")
-#     while b != 0:
-#         q, r = (a // b), (a % b)
-#         x = (x2 - q * x1)
-#         y = (y2 - q * y1)
-#         a, b, x2, y2, x1, y1 = b, r, x1, y1, x, y
-#         print(f"q={q}, r={r}, x={x}, y={y}, a={a}, b={b}, x2={x2}, x1={x1}, y2={y2}, y1={y1} ")
-#     r = [y2,data[1]]
-#     return r
-# r = evklid()
-# #
-# print(pow(149,-1,82620))
-# print(r[0]%r[1])
-
-
-#
-# def char_to_binary(char):
-#     binary_repr = bin(ord(char))[2:].zfill(8)
-#     return binary_repr
-#
-# # Пример использования:
-# char = 'e'
-# binary = char_to_binary(char)
-# print(f"Двоичное представление символа '{char}': {binary}")
-
-# import math
-# print(math.floor(math.log(83197, 2)))
-# print(math.log(70181, 2))
-# print(int("0101100010111", 2))
-# print(bin(2839)[2:].zfill(13))
-# print()
-#
-# print(pow( 7420 ,6753,8383))
-# print(bin(3429)[2:].zfill(13))
-
-# print(ord("e"))
-# print(chr(101))
-# print(bin(101)[2:].zfill(8))
-# print(len("0000000000000"))
-
-
-# print(bin(2839)[2:].zfill(13))
-
-
-
-# def char_to_binary(char):
-#     binary_repr = bin(ord(char))[2:].zfill(8)
-#     return binary_repr
-#
-# # Пример использования:
-# char = 'd'
-# binary = char_to_binary(char)
-# print(f"Двоичное представление символа '{char}': {binary}")
-# print(int("0000000011010", 2))
-# print(pow(613, 17, 8383))
-# print(bin(0)[2:].zfill(13))
-# print(len("00001010111000"))
-# print(int("01001010000011", 2))
-# print(pow(4739, 6753, 8383))
-# print(bin(613)[2:].zfill(13)
-# print(len("01110100"))
-# print(int("01110100", 2))
-# print(chr(101))
-
-
-
-
-
-
-
-# def evklid():
-#     data = [149, 82620]
-#     a, b = max(data), min(data)
-#     q, r, x, y = "-", "-", "-", "-"
-#     x2, x1, y2, y1 = 1, 0, 0, 1
-#     print(f"q={q}, r={r}, x={x}, y={y}, a={a}, b={b}, x2={x2}, x1={x1}, y2={y2}, y1={y1} ")
-#     while b != 0:
-#         q, r = (a // b), (a % b)
-#         x = (x2 - q * x1)
-#         y = (y2 - q * y1)
-#         a, b, x2, y2, x1, y1 = b, r, x1, y1, x, y
-#         print(f"q={q}, r={r}, x={x}, y={y}, a={a}, b={b}, x2={x2}, x1={x1}, y2={y2}, y1={y1} ")
-#     r = [y2,data[1]]
-#     return r
-# r = evklid()
-# #
-# print(pow(149,-1,82620))
-# print(r[0]%r[1])
-
-
-# print(len("10000010110011011"))
-# print(int("10011110010111100", 2))
-# print(pow(16484, 149, 83197))
-# print(bin(81084)[2:].zfill(16))
-# print(int("66971", 2))
-
-# print(pow(81084, 1109, 83197))
-# print(bin(26725)[2:].zfill(16))
+import math
 
 def evklid(e, φ):
     data = [e, φ]
@@ -118,8 +16,7 @@ def evklid(e, φ):
     return d
 
 print(f"Гененеция ключей ")
-def gen_key():
-    p, q = 271, 307 # меняем по таблице простых чисел
+def gen_key(p, q):
     print(f"    1) Выбор простых чисел: p = {p}, q = {q} ")
     n = p * q
     print(f"    2) Вычисление n путем произведения p на q:")
@@ -144,5 +41,52 @@ def gen_key():
     print(f"Публичный ключ  = (e,n) = ({e}, {n})")
     print(f"Частный ключ = (d,n) = ({d}, {n})")
     return data_key
-data_key = gen_key()
 
+
+print()
+def encryption(data_key,work ):
+    e = data_key["open_key"][0]
+    n = data_key["open_key"][1]
+    data_work = []
+    for i in range(len(work)):
+        letter = bin(ord(work[i]))[2:]
+        letter = letter.zfill(8)
+        print(f" {work[i]} = в аски коды {ord(work[i])} = в бинарном виде {letter} ")
+        data_work.append(letter)
+    print(" | ".join(data_work))
+    len_block = (math.floor(math.log(n, 2)))
+    print(f"Длина блока = ⌊𝑙𝑜𝑔 2𝑛⌋ = ⌊𝑙𝑜𝑔 {n}⌋ = {len_block}")
+    data_work = "".join(data_work)
+    if len(data_work)%len_block != 0:
+        coint = len_block - len(data_work)%len_block # ????????????????7
+        print(coint)
+        data_work = "0"*coint + data_work
+    print(f'      {data_work}')
+    data = []
+    coint = 1
+    for i in range(len(data_work),0, -len_block):
+        number = data_work[i - len_block:i]
+        num = int(number, 2)
+        print(f"        m{coint} = {number} = {num}")
+        data.append(num)
+        coint += 1
+    print(f"             𝑐𝑖 = 𝑚𝑖 ^𝑒 𝑚𝑜𝑑 𝑛 ")
+    data_work = []
+    coint = 1
+    print(f"Длина блока = ⌊𝑙𝑜𝑔 2𝑛⌋ + 1 = ⌊𝑙𝑜𝑔 {n}⌋ = {len_block + 1}")
+    for m in data:
+        num = pow(m,e,n)
+        number = bin(num)[2:].zfill(len_block+1)
+        data_work.append(number)
+        print(f"c{coint} = {m}^{e} mod {n} = {number} ")
+        coint += 1
+    print(f'        {" | ".join(data_work)}')
+    print(f'         {"".join(data_work)}')
+def main():
+    work = "Home"
+    p, q = 271, 307 # меняем по таблице простых чисел
+    data_key = gen_key(p, q)
+    print()
+    print(f"Зашифрование")
+    encryption(data_key, work)
+main()
