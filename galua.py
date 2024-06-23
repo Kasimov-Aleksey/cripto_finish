@@ -16,11 +16,6 @@ def combinations(list_, ord):
             print(f"{t[0]}x^3 + {t[1]}x^2 + {t[2]}x + {t[3]}")
 
 
-# Пример вызова функции для GF(3) и многочленов степени 2
-print("Комбинации для GF(3) и многочленов степени 2:")
-combinations([0, 1, 2], 2)
-
-
 def build_gf_2_2():
     # 1. Элементы простого конечного поля GF(2)
     gf_2_elements = [0, 1]
@@ -58,9 +53,6 @@ def build_gf_2_2():
         print(f"{row}: {multiplication_table[row]}")
 
     return gf_2_2_elements, addition_table, multiplication_table
-
-
-gf_2_2_elements, addition_table, multiplication_table = build_gf_2_2()
 
 
 def investigate_gf_2_2(elements, addition_table, multiplication_table):
@@ -110,4 +102,23 @@ def investigate_gf_2_2(elements, addition_table, multiplication_table):
     print("{1}")
 
 
-investigate_gf_2_2(gf_2_2_elements, addition_table, multiplication_table)
+def main():
+    while True:
+        try:
+            field_order = int(input("Введите порядок конечного поля (например, 2 для GF(2^2)): "))
+            if field_order != 2:
+                print("На данный момент поддерживается только GF(2^2). Попробуйте снова.")
+                continue
+
+            combinations([0, 1], 2)
+
+            gf_2_2_elements, addition_table, multiplication_table = build_gf_2_2()
+            investigate_gf_2_2(gf_2_2_elements, addition_table, multiplication_table)
+            break
+
+        except ValueError:
+            print("Введите корректное целое число. Попробуйте снова.")
+
+
+if __name__ == "__main__":
+    main()
